@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loan Default Predictor</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Loan Default Prediction</h1>
+      <form action="/predict" method="post">
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="number" name="age" placeholder="e.g. 30" required />
+        </div>
+
+        <div class="form-group">
+          <label for="income">Monthly Income (USD)</label>
+          <input type="number" name="income" placeholder="e.g. 5000" required />
+          <div class="hint">Enter your monthly income in US dollars.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="loanAmount">Loan Amount (USD)</label>
+          <input
+            type="number"
+            name="loanAmount"
+            placeholder="e.g. 20000"
+            required
+          />
+          <div class="hint">
+            Total amount of loan you're applying for in USD.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="creditScore">Credit Score</label>
+          <input
+            type="number"
+            name="creditScore"
+            placeholder="e.g. 700"
+            min="300"
+            max="850"
+            required
+          />
+          <div class="hint">
+            A number between 300 and 850. Higher means better credit history.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="monthsEmployed">Months Employed</label>
+          <input
+            type="number"
+            name="monthsEmployed"
+            placeholder="e.g. 24"
+            required
+          />
+          <div class="hint">
+            Total time you've worked in months. 2 years = 24 months.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="numCreditLines">Number of Credit Lines</label>
+          <input
+            type="number"
+            name="numCreditLines"
+            placeholder="e.g. 5"
+            required
+          />
+          <div class="hint">
+            Total number of your credit accounts (cards, loans, etc.).
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="interestRate">Interest Rate (%)</label>
+          <input
+            type="number"
+            name="interestRate"
+            step="0.01"
+            placeholder="e.g. 5.5"
+            required
+          />
+          <div class="hint">
+            The yearly borrowing cost as a percentage. Lower is better.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="loanTerm">Loan Term (Months)</label>
+          <input type="number" name="loanTerm" placeholder="e.g. 36" required />
+          <div class="hint">How many months you’ll take to repay the loan.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="monthlyDebt">Monthly Debt Payment (USD)</label>
+          <input
+            type="number"
+            name="monthlyDebt"
+            step="0.01"
+            placeholder="e.g. 1000"
+            required
+          />
+          <div class="hint">
+            Monthly debt payments like car loans, credit cards — in USD.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Education:</label>
+          <div class="radio-group">
+            <label
+              ><input
+                type="radio"
+                name="education"
+                value="High School"
+                required
+              />High School</label
+            >
+            <label
+              ><input
+                type="radio"
+                name="education"
+                value="Bachelor's"
+              />Bachelor's</label
+            >
+            <label
+              ><input
+                type="radio"
+                name="education"
+                value="Master's"
+              />Master's</label
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Employment Type:</label>
+          <div class="radio-group">
+            <label
+              ><input
+                type="radio"
+                name="employmentType"
+                value="Full-time"
+                required
+              />Full-time</label
+            >
+            <label
+              ><input
+                type="radio"
+                name="employmentType"
+                value="Part-time"
+              />Part-time</label
+            >
+            <label
+              ><input
+                type="radio"
+                name="employmentType"
+                value="Unemployed"
+              />Unemployed</label
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Marital Status:</label>
+          <div class="radio-group">
+            <label
+              ><input
+                type="radio"
+                name="maritalStatus"
+                value="Single"
+                required
+              />Single</label
+            >
+            <label
+              ><input
+                type="radio"
+                name="maritalStatus"
+                value="Married"
+              />Married</label
+            >
+            <label
+              ><input
+                type="radio"
+                name="maritalStatus"
+                value="Divorced"
+              />Divorced</label
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Has Mortgage:</label>
+          <div class="radio-group">
+            <label
+              ><input
+                type="radio"
+                name="hasMortgage"
+                value="Yes"
+                required
+              />Yes</label
+            >
+            <label
+              ><input type="radio" name="hasMortgage" value="No" />No</label
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Has Dependents:</label>
+          <div class="radio-group">
+            <label
+              ><input
+                type="radio"
+                name="hasDependents"
+                value="Yes"
+                required
+              />Yes</label
+            >
+            <label
+              ><input type="radio" name="hasDependents" value="No" />No</label
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Loan Purpose:</label>
+          <select name="loanPurpose" required>
+            <option value="Auto">Auto</option>
+            <option value="Business">Business</option>
+            <option value="Education">Education</option>
+            <option value="Other">Other</option>
+          </select>
+          <div class="hint">
+            Reason you need the loan — car, business, study or something else.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Has Co-Signer:</label>
+          <div class="radio-group">
+            <label
+              ><input
+                type="radio"
+                name="hasCoSigner"
+                value="Yes"
+                required
+              />Yes</label
+            >
+            <label
+              ><input type="radio" name="hasCoSigner" value="No" />No</label
+            >
+          </div>
+          <div class="hint">
+            A co-signer agrees to pay if you don’t. Choose Yes if someone is
+            co-signing.
+          </div>
+        </div>
+
+        <button type="submit">Predict</button>
+      </form>
+
+      {% if result %}
+      <div class="result">Prediction: {{ result }}</div>
+      {% endif %}
+    </div>
+  </body>
+</html>
